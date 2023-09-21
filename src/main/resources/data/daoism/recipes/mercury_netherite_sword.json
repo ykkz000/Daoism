@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:iron_ingot"
+    },
+    "Y": {
+      "item": "daoism:cinnabar"
+    }
+  },
+  "pattern": [
+    "Y",
+    "X",
+    "#"
+  ],
+  "result": {
+    "item": "daoism:mercury_iron_sword"
+  },
+  "show_notification": true
+}
