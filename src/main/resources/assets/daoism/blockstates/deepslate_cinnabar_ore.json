@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "minecraft:block/deepslate_copper_ore"
+      "model": "daoism:block/deepslate_cinnabar_ore"
     }
   }
 }

@@ -7,15 +7,18 @@
     },
     "X": {
       "item": "minecraft:iron_ingot"
+    },
+    "Y": {
+      "item": "daoism:cinnabar"
     }
   },
   "pattern": [
-    "X",
+    "Y",
     "X",
     "#"
   ],
   "result": {
-    "item": "minecraft:iron_sword"
+    "item": "daoism:mercury_iron_sword"
   },
   "show_notification": true
 }

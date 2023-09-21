@@ -1,0 +1,23 @@
+{
+  "itemGroup.daoism.daoism": "Daoism",
+
+  "item.daoism.cinnabar": "Cinnabar",
+  "item.daoism.transmission_talisman": "Transmission Talisman",
+  "item.daoism.rain_talisman": "Rain Talisman",
+  "item.daoism.lightning_talisman": "Lightning Talisman",
+  "item.daoism.mercury_wooden_sword": "Wooden Sword With Mercury",
+  "item.daoism.mercury_stone_sword": "Stone Sword With Mercury",
+  "item.daoism.mercury_iron_sword": "Iron Sword With Mercury",
+  "item.daoism.mercury_golden_sword": "Golden Sword With Mercury",
+  "item.daoism.mercury_diamond_sword": "Diamond Sword With Mercury",
+  "item.daoism.mercury_netherite_sword": "Netherite Sword With Mercury",
+
+  "block.daoism.altar": "Altar",
+  "block.daoism.cinnabar_ore": "Cinnabar Ore",
+  "block.daoism.deepslate_cinnabar_ore": "Deepslate Cinnabar Ore",
+
+  "container.daoism.altar": "Altar",
+
+  "text.daoism.experience_consume": "Experience consume: %s",
+  "text.daoism.experience_not_enough": "Experience is not enough"
+}

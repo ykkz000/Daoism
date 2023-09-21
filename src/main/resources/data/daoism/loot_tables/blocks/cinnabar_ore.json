@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "minecraft:coal_ore"
+              "name": "daoism:cinnabar_ore"
             },
             {
               "type": "minecraft:item",
@@ -38,7 +38,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "minecraft:coal"
+              "name": "daoism:cinnabar"
             }
           ]
         }
@@ -46,5 +46,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "minecraft:blocks/coal_ore"
+  "random_sequence": "daoism:blocks/cinnabar_ore"
 }

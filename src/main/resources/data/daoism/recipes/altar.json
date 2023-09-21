@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "minecraft:obsidian"
+      "tag": "minecraft:planks"
     },
     "B": {
-      "item": "minecraft:book"
+      "item": "daoism:cinnabar"
     },
     "D": {
       "item": "minecraft:diamond"
@@ -18,7 +18,7 @@
     "###"
   ],
   "result": {
-    "item": "minecraft:enchanting_table"
+    "item": "daoism:altar"
   },
   "show_notification": true
 }

@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-          "Name": "minecraft:coal_ore"
+          "Name": "daoism:cinnabar_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",
@@ -15,7 +15,7 @@
       },
       {
         "state": {
-          "Name": "minecraft:deepslate_coal_ore"
+          "Name": "daoism:deepslate_cinnabar_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",

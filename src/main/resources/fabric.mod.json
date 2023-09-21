@@ -2,7 +2,6 @@
   "schemaVersion": 1,
   "id": "daoism",
   "version": "${version}",
-
   "name": "Daoism",
   "description": "Introduction of Taoist mythological content",
   "authors": [
@@ -11,10 +10,8 @@
   "contact": {
     "repo": "https://github.com/ykkz000/Daoism"
   },
-
   "license": "GPL-3.0",
   "icon": "assets/daoism/icon.png",
-
   "environment": "*",
   "entrypoints": {
     "client": [
@@ -24,14 +21,12 @@
       "ykkz000.daoism.Daoism"
     ]
   },
-
-      "mixins": [
-        "daoism.mixins.json"
-      ],
-
+  "mixins": [
+    "daoism.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-        "fabric": "*",
+    "fabric": "*",
     "minecraft": "${minecraft_version}"
   }
 }

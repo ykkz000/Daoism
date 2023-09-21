@@ -18,11 +18,9 @@
 
 package ykkz000.daoism.item;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -31,8 +29,8 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import ykkz000.daoism.util.WorldUtil;
 
-public class ThunderTalismanItem extends TalismanItem {
-    public ThunderTalismanItem(Settings settings) {
+public class LightningTalismanItem extends AbstractTalismanItem {
+    public LightningTalismanItem(Settings settings) {
         super(settings);
     }
 
@@ -40,18 +38,18 @@ public class ThunderTalismanItem extends TalismanItem {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         if (itemStack != null && world instanceof ServerWorld serverWorld) {
-            WorldUtil.filterEntitySurroundEntity(user, world, 5, Entity::isLiving)
+            WorldUtil.filterEntitySurroundEntity(user, world, 10.0, entity -> entity instanceof HostileEntity)
                     .stream()
-                    .map(entity -> (LivingEntity) entity)
-                    .filter(livingEntity -> livingEntity instanceof MobEntity).forEach(livingEntity -> {
+                    .map(entity -> (HostileEntity) entity)
+                    .forEach(entity -> {
                         LightningEntity lightning = EntityType.LIGHTNING_BOLT.create(world);
                         if (lightning == null) {
                             return;
                         }
-                        lightning.setPosition(livingEntity.getPos());
+                        lightning.setPosition(entity.getPos());
                         serverWorld.spawnEntity(lightning);
                     });
-            user.getItemCooldownManager().set(this, 1200);
+            user.getItemCooldownManager().set(this, 200);
             itemStack.decrement(1);
             return TypedActionResult.success(itemStack);
         }

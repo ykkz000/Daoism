@@ -1,0 +1,23 @@
+{
+  "itemGroup.daoism.daoism": "道",
+
+  "item.daoism.cinnabar": "朱砂",
+  "item.daoism.transmission_talisman": "传送符",
+  "item.daoism.rain_talisman": "祈雨符",
+  "item.daoism.lightning_talisman": "雷电符",
+  "item.daoism.mercury_wooden_sword": "带汞的木剑",
+  "item.daoism.mercury_stone_sword": "带汞的石剑",
+  "item.daoism.mercury_iron_sword": "带汞的铁剑",
+  "item.daoism.mercury_golden_sword": "带汞的金剑",
+  "item.daoism.mercury_diamond_sword": "带汞的钻石剑",
+  "item.daoism.mercury_netherite_sword": "带汞的下届合金剑",
+
+  "block.daoism.altar": "法坛",
+  "block.daoism.cinnabar_ore": "朱砂矿",
+  "block.daoism.deepslate_cinnabar_ore": "深板岩朱砂矿",
+
+  "container.daoism.altar": "法坛",
+
+  "text.daoism.experience_consume": "消耗%s级经验",
+  "text.daoism.experience_not_enough": "经验不足"
+}

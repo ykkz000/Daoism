@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "daoism:item/mercury_diamond_sword"
+    "layer0": "daoism:item/mercury_stone_sword"
   }
 }

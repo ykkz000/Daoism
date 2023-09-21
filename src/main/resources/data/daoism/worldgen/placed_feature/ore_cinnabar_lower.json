@@ -1,5 +1,5 @@
 {
-  "feature": "minecraft:ore_coal_buried",
+  "feature": "daoism:ore_cinnabar_buried",
   "placement": [
     {
       "type": "minecraft:count",

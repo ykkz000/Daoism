@@ -20,8 +20,8 @@ package ykkz000.daoism.item;
 
 import net.minecraft.item.Item;
 
-public abstract class TalismanItem extends Item {
-    public TalismanItem(Settings settings) {
+public abstract class AbstractTalismanItem extends Item {
+    public AbstractTalismanItem(Settings settings) {
         super(settings);
     }
 }

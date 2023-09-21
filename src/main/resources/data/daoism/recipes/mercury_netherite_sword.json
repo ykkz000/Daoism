@@ -6,7 +6,7 @@
       "item": "minecraft:stick"
     },
     "X": {
-      "item": "minecraft:iron_ingot"
+      "item": "minecraft:netherite_ingot"
     },
     "Y": {
       "item": "daoism:cinnabar"
@@ -18,7 +18,7 @@
     "#"
   ],
   "result": {
-    "item": "daoism:mercury_iron_sword"
+    "item": "daoism:mercury_netherite_sword"
   },
   "show_notification": true
 }

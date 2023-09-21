@@ -1,5 +1,5 @@
 {
-  "feature": "minecraft:ore_coal",
+  "feature": "daoism:ore_cinnabar",
   "placement": [
     {
       "type": "minecraft:count",
