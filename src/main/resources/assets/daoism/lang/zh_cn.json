@@ -2,6 +2,7 @@
   "itemGroup.daoism.daoism": "道",
 
   "item.daoism.cinnabar": "朱砂",
+  "item.daoism.empty_talisman": "空符",
   "item.daoism.transmission_talisman": "传送符",
   "item.daoism.rain_talisman": "祈雨符",
   "item.daoism.lightning_talisman": "雷电符",
@@ -15,9 +16,13 @@
   "block.daoism.altar": "法坛",
   "block.daoism.cinnabar_ore": "朱砂矿",
   "block.daoism.deepslate_cinnabar_ore": "深板岩朱砂矿",
+  "block.daoism.cinnabar_block": "朱砂块",
 
   "container.daoism.altar": "法坛",
 
   "text.daoism.experience_consume": "消耗%s级经验",
-  "text.daoism.experience_not_enough": "经验不足"
+  "text.daoism.experience_not_enough": "经验不足",
+
+  "advancements.daoism.story.mine_cinnabar.description": "获得朱砂",
+  "advancements.daoism.story.mine_cinnabar.title": "羽化登仙"
 }

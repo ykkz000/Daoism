@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": {
+      "item": "minecraft:paper"
+    },
+    "#": {
+      "item": "daoism:cinnabar"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "X#X",
+    "XXX"
+  ],
+  "result": {
+    "item": "daoism:empty_talisman"
+  },
+  "show_notification": true
+}

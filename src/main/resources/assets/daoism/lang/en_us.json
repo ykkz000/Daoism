@@ -2,6 +2,7 @@
   "itemGroup.daoism.daoism": "Daoism",
 
   "item.daoism.cinnabar": "Cinnabar",
+  "item.daoism.empty_talisman": "Empty Talisman",
   "item.daoism.transmission_talisman": "Transmission Talisman",
   "item.daoism.rain_talisman": "Rain Talisman",
   "item.daoism.lightning_talisman": "Lightning Talisman",
@@ -15,9 +16,13 @@
   "block.daoism.altar": "Altar",
   "block.daoism.cinnabar_ore": "Cinnabar Ore",
   "block.daoism.deepslate_cinnabar_ore": "Deepslate Cinnabar Ore",
+  "block.daoism.cinnabar_block": "Cinnabar Block",
 
   "container.daoism.altar": "Altar",
 
   "text.daoism.experience_consume": "Experience consume: %s",
-  "text.daoism.experience_not_enough": "Experience is not enough"
+  "text.daoism.experience_not_enough": "Experience is not enough",
+
+  "advancements.daoism.story.mine_cinnabar.description": "Acquire cinnabar",
+  "advancements.daoism.story.mine_cinnabar.title": "Take Flight to the Land of the Immortal"
 }

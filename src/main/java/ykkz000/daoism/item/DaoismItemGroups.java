@@ -38,7 +38,9 @@ public class DaoismItemGroups {
                 entries.add(DaoismItems.CINNABAR);
                 entries.add(DaoismItems.CINNABAR_ORE);
                 entries.add(DaoismItems.DEEPSLATE_CINNABAR_ORE);
+                entries.add(DaoismItems.CINNABAR_BLOCK);
 
+                entries.add(DaoismItems.EMPTY_TALISMAN);
                 entries.add(DaoismItems.TRANSMISSION_TALISMAN);
                 entries.add(DaoismItems.RAIN_TALISMAN);
                 entries.add(DaoismItems.LIGHTNING_TALISMAN);

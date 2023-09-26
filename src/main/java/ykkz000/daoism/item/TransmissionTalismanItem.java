@@ -21,7 +21,6 @@ package ykkz000.daoism.item;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.PositionFlag;
 import net.minecraft.registry.RegistryKey;
@@ -54,7 +53,7 @@ public class TransmissionTalismanItem extends AbstractTalismanItem {
 
     @Override
     public boolean canRepair(ItemStack stack, ItemStack ingredient) {
-        return ingredient.isOf(Items.PAPER) || super.canRepair(stack, ingredient);
+        return ingredient.isOf(DaoismItems.CINNABAR) || super.canRepair(stack, ingredient);
     }
 
     @Override

@@ -32,6 +32,8 @@ public class DaoismItems {
     public static final Item CINNABAR = register("cinnabar", new Item(new Item.Settings()));
     public static final Item CINNABAR_ORE = register("cinnabar_ore", new BlockItem(DaoismBlocks.CINNABAR_ORE, new Item.Settings()));
     public static final Item DEEPSLATE_CINNABAR_ORE = register("deepslate_cinnabar_ore", new BlockItem(DaoismBlocks.DEEPSLATE_CINNABAR_ORE, new Item.Settings()));
+    public static final Item CINNABAR_BLOCK = register("cinnabar_block", new BlockItem(DaoismBlocks.CINNABAR_BLOCK, new Item.Settings()));
+    public static final Item EMPTY_TALISMAN = register("empty_talisman", new EmptyTalismanItem(new Item.Settings().maxCount(16).fireproof()));
     public static final Item TRANSMISSION_TALISMAN = register("transmission_talisman", new TransmissionTalismanItem(new Item.Settings().maxCount(1).maxDamage(32).fireproof()));
     public static final Item RAIN_TALISMAN = register("rain_talisman", new RainTalismanItem(new Item.Settings().maxCount(16).fireproof()));
     public static final Item LIGHTNING_TALISMAN = register("lightning_talisman", new LightningTalismanItem(new Item.Settings().maxCount(16).fireproof()));

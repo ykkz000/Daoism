@@ -22,7 +22,6 @@ import com.google.gson.JsonObject;
 import lombok.Getter;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
@@ -32,6 +31,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
+import ykkz000.daoism.item.DaoismItems;
 
 public class TalismanRecipe implements Recipe<Inventory> {
     protected final Identifier id;
@@ -47,7 +47,7 @@ public class TalismanRecipe implements Recipe<Inventory> {
 
     @Override
     public boolean matches(Inventory inventory, World world) {
-        return inventory.getStack(0).isOf(Items.PAPER);
+        return inventory.getStack(0).isOf(DaoismItems.EMPTY_TALISMAN);
     }
 
     @Override

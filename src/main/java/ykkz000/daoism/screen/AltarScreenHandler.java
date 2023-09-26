@@ -25,13 +25,13 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 import org.apache.commons.compress.utils.Lists;
 import ykkz000.daoism.block.DaoismBlocks;
+import ykkz000.daoism.item.DaoismItems;
 import ykkz000.daoism.recipe.DaoismRecipeTypes;
 import ykkz000.daoism.recipe.TalismanRecipe;
 
@@ -68,7 +68,7 @@ public class AltarScreenHandler extends ScreenHandler {
 
             @Override
             public boolean canInsert(ItemStack stack) {
-                return stack.isOf(Items.PAPER);
+                return stack.isOf(DaoismItems.EMPTY_TALISMAN);
             }
         });
         this.outputSlot = this.addSlot(new Slot(this.output, 0, 143, 33) {

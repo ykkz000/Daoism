@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:story/iron_tools",
+  "criteria": {
+    "cinnabar": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "daoism:cinnabar"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.daoism.story.mine_cinnabar.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "daoism:cinnabar"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.daoism.story.mine_cinnabar.title"
+    }
+  },
+  "requirements": [
+    [
+      "cinnabar"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
