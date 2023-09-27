@@ -55,6 +55,6 @@ public class Daoism implements ModInitializer {
         }
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_DECORATION, DaoismPlacedFeatures.ORE_CINNABAR_LOWER);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_DECORATION, DaoismPlacedFeatures.ORE_CINNABAR_UPPER);
-        BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), SpawnGroup.MONSTER, DaoismEntityTypes.CHINESE_ZOMBIE, 8, 1, 2);
+        BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), SpawnGroup.MONSTER, DaoismEntityTypes.CHINESE_ZOMBIE, 4, 1, 2);
     }
 }

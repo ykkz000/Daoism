@@ -79,6 +79,11 @@ public class ChineseZombieEntity extends ZombieEntity {
         return super.squaredAttackRange(target) * 1.44;
     }
 
+    @Override
+    public int getXpToDrop() {
+        return super.getXpToDrop() * 2;
+    }
+
     public static void infect(LivingEntity entity) {
         if (!entity.isRemoved() && entity.getWorld() instanceof ServerWorld serverWorld && !entity.isPlayer()) {
             ChineseZombieEntity zombieEntity = new ChineseZombieEntity(serverWorld);
