@@ -22,8 +22,10 @@ import com.mojang.logging.LogUtils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.world.gen.GenerationStep;
 import org.slf4j.Logger;
+import ykkz000.daoism.entity.DaoismEntityTypes;
 import ykkz000.daoism.util.I18nUtil;
 import ykkz000.daoism.world.gen.feature.DaoismPlacedFeatures;
 
@@ -41,6 +43,9 @@ public class Daoism implements ModInitializer {
             Class.forName("ykkz000.daoism.block.entity.DaoismBlockEntityTypes");
             Class.forName("ykkz000.daoism.item.DaoismItems");
             Class.forName("ykkz000.daoism.item.DaoismItemGroups");
+            Class.forName("ykkz000.daoism.entity.DaoismEntityTypes");
+            Class.forName("ykkz000.daoism.entity.attribute.DaoismAttributeRegistry");
+            Class.forName("ykkz000.daoism.entity.effect.DaoismStatusEffects");
             Class.forName("ykkz000.daoism.recipe.DaoismRecipeTypes");
             Class.forName("ykkz000.daoism.recipe.DaoismRecipeSerializers");
             Class.forName("ykkz000.daoism.screen.DaoismScreenHandlerTypes");
@@ -50,5 +55,6 @@ public class Daoism implements ModInitializer {
         }
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_DECORATION, DaoismPlacedFeatures.ORE_CINNABAR_LOWER);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_DECORATION, DaoismPlacedFeatures.ORE_CINNABAR_UPPER);
+        BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), SpawnGroup.MONSTER, DaoismEntityTypes.CHINESE_ZOMBIE, 8, 1, 2);
     }
 }

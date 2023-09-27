@@ -18,11 +18,17 @@
   "block.daoism.deepslate_cinnabar_ore": "深板岩朱砂矿",
   "block.daoism.cinnabar_block": "朱砂块",
 
+  "entity.daoism.chinese_zombie": "中国僵尸",
+
+  "effect.daoism.degradation": "堕化",
+
   "container.daoism.altar": "法坛",
 
   "text.daoism.experience_consume": "消耗%s级经验",
   "text.daoism.experience_not_enough": "经验不足",
 
   "advancements.daoism.story.mine_cinnabar.description": "获得朱砂",
-  "advancements.daoism.story.mine_cinnabar.title": "羽化登仙"
+  "advancements.daoism.story.mine_cinnabar.title": "羽化登仙",
+
+  "death.attack.degradation": "%1$s因为堕化死亡"
 }

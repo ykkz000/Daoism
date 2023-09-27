@@ -1,0 +1,6 @@
+{
+  "death_message_type": "default",
+  "exhaustion": 1.0,
+  "message_id": "degradation",
+  "scaling": "always"
+}

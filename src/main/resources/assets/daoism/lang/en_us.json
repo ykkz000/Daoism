@@ -18,11 +18,17 @@
   "block.daoism.deepslate_cinnabar_ore": "Deepslate Cinnabar Ore",
   "block.daoism.cinnabar_block": "Cinnabar Block",
 
+  "entity.daoism.chinese_zombie": "Chinese Zombie",
+
+  "effect.daoism.degradation": "Degradation",
+
   "container.daoism.altar": "Altar",
 
   "text.daoism.experience_consume": "Experience consume: %s",
   "text.daoism.experience_not_enough": "Experience is not enough",
 
   "advancements.daoism.story.mine_cinnabar.description": "Acquire cinnabar",
-  "advancements.daoism.story.mine_cinnabar.title": "Take Flight to the Land of the Immortal"
+  "advancements.daoism.story.mine_cinnabar.title": "Take Flight to the Land of the Immortal",
+
+  "death.attack.degradation": "%1$s death because of degradation"
 }

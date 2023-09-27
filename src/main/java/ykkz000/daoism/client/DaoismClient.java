@@ -35,6 +35,7 @@ public class DaoismClient implements ClientModInitializer {
         try {
             Class.forName("ykkz000.daoism.client.gui.screen.ingame.DaoismHandledScreens");
             Class.forName("ykkz000.daoism.client.render.block.entity.DaoismBlockEntityRendererFactories");
+            Class.forName("ykkz000.daoism.client.render.entity.DaoismEntityRenderers");
         } catch (ClassNotFoundException e) {
             LOGGER.error("Cannot Initialize this MOD, caused by", e);
         }
