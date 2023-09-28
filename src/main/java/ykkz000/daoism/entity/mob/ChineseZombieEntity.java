@@ -61,7 +61,6 @@ public class ChineseZombieEntity extends ZombieEntity {
 
     @Override
     public boolean onKilledOther(ServerWorld world, LivingEntity other) {
-        ChineseZombieEntity.infect(other);
         return true;
     }
 

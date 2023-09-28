@@ -32,14 +32,14 @@ public class DegradationEffect extends TickStatusEffect {
 
     @Override
     public boolean canUpdateEffect(int tick, LivingEntity entity, int amplifier) {
-        return tickTime % (80 >> amplifier) == 0;
+        return tickTime % (80 >> amplifier) == 0 || entity.isDead();
     }
 
     @Override
     public void updateEffect(int tick, LivingEntity entity, int amplifier) {
         if (entity.getWorld() instanceof ServerWorld) {
             if (entity instanceof PlayerEntity playerEntity) {
-                playerEntity.damage(playerEntity.getDamageSources().create(DaoismDamageTypes.DEGRADATION), playerEntity.getHealth() / 2);
+                playerEntity.damage(playerEntity.getDamageSources().create(DaoismDamageTypes.DEGRADATION), playerEntity.getHealth() / 2f);
             } else {
                 ChineseZombieEntity.infect(entity);
             }
