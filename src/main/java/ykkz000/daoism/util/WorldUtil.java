@@ -30,9 +30,7 @@ public class WorldUtil {
         return world.getOtherEntities(entity, new Box(minX, minY, minZ, maxX, maxY, maxZ))
                 .stream().filter(filter).toList();
     }
-    public static List<Entity> filterEntity(World world, double minX, double maxX, double minY, double maxY, double minZ, double maxZ, Predicate<Entity> filter) {
-        return WorldUtil.filterEntity(world, null, minX, maxX, minY, maxY, minZ, maxZ, filter);
-    }
+
     public static List<Entity> filterEntitySurroundEntity(Entity entity, World world, double r, Predicate<Entity> filter) {
         return WorldUtil.filterEntity(world, entity, entity.getX() -r, entity.getX() + r, entity.getY() - r, entity.getY() + r, entity.getZ() - r, entity.getZ() + r, filter)
                 .stream().filter(entity1 -> entity1.squaredDistanceTo(entity) <= r * r).toList();
