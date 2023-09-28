@@ -20,25 +20,28 @@ package ykkz000.daoism.item;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+import ykkz000.daoism.entity.projectile.thrown.ImmobilizationTalismanEntity;
 
-public class RainTalismanItem extends AbstractTalismanItem {
-    public RainTalismanItem(Settings settings) {
+public class ImmobilizationTalismanItem extends AbstractTalismanItem{
+    public ImmobilizationTalismanItem(Settings settings) {
         super(settings);
     }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        if (world instanceof ServerWorld serverWorld) {
-            serverWorld.setWeather(0, 1200, true, false);
+        if (!world.isClient) {
+            ImmobilizationTalismanEntity immobilizationTalismanEntity = new ImmobilizationTalismanEntity(world, user);
+            immobilizationTalismanEntity.setItem(itemStack);
+            immobilizationTalismanEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 1.5f, 1.0f);
+            world.spawnEntity(immobilizationTalismanEntity);
         }
         user.incrementStat(Stats.USED.getOrCreateStat(this));
-        user.getItemCooldownManager().set(this, 1200);
+        user.getItemCooldownManager().set(this, 10);
         if (!user.getAbilities().creativeMode) {
             itemStack.decrement(1);
         }

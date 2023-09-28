@@ -26,9 +26,11 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import ykkz000.daoism.Daoism;
 import ykkz000.daoism.entity.mob.ChineseZombieEntity;
+import ykkz000.daoism.entity.projectile.thrown.ImmobilizationTalismanEntity;
 
 public class DaoismEntityTypes {
     public static final EntityType<ChineseZombieEntity> CHINESE_ZOMBIE = register("chinese_zombie", builder(ChineseZombieEntity::new, SpawnGroup.MONSTER, ChineseZombieEntity.class).setDimensions(0.6f, 1.95f).maxTrackingRange(8));
+    public static final EntityType<ImmobilizationTalismanEntity> IMMOBILIZATION_TALISMAN = register("immobilization_talisman", builder(ImmobilizationTalismanEntity::new, SpawnGroup.MISC, ImmobilizationTalismanEntity.class).setDimensions(0.25f, 0.25f).maxTrackingRange(4).trackingTickInterval(10));
     public static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> type) {
         return Registry.register(Registries.ENTITY_TYPE, new Identifier(Daoism.MOD_ID, id), type.build(id));
     }

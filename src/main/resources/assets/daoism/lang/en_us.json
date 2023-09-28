@@ -6,6 +6,7 @@
   "item.daoism.transmission_talisman": "Transmission Talisman",
   "item.daoism.rain_talisman": "Rain Talisman",
   "item.daoism.lightning_talisman": "Lightning Talisman",
+  "item.daoism.immobilization_talisman": "Immobilization Talisman",
   "item.daoism.mercury_wooden_sword": "Wooden Sword With Mercury",
   "item.daoism.mercury_stone_sword": "Stone Sword With Mercury",
   "item.daoism.mercury_iron_sword": "Iron Sword With Mercury",
@@ -19,8 +20,10 @@
   "block.daoism.cinnabar_block": "Cinnabar Block",
 
   "entity.daoism.chinese_zombie": "Chinese Zombie",
+  "entity.daoism.immobilization_talisman": "Immobilization Talisman",
 
   "effect.daoism.degradation": "Degradation",
+  "effect.daoism.immobilization": "Immobilization",
 
   "container.daoism.altar": "Altar",
 

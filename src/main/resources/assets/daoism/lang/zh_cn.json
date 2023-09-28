@@ -6,6 +6,7 @@
   "item.daoism.transmission_talisman": "传送符",
   "item.daoism.rain_talisman": "祈雨符",
   "item.daoism.lightning_talisman": "雷电符",
+  "item.daoism.immobilization_talisman": "定身符",
   "item.daoism.mercury_wooden_sword": "带汞的木剑",
   "item.daoism.mercury_stone_sword": "带汞的石剑",
   "item.daoism.mercury_iron_sword": "带汞的铁剑",
@@ -19,8 +20,10 @@
   "block.daoism.cinnabar_block": "朱砂块",
 
   "entity.daoism.chinese_zombie": "中国僵尸",
+  "entity.daoism.immobilization_talisman": "定身符",
 
   "effect.daoism.degradation": "堕化",
+  "effect.daoism.immobilization": "定身",
 
   "container.daoism.altar": "法坛",
 

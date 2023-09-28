@@ -44,6 +44,7 @@ public class DaoismItemGroups {
                 entries.add(DaoismItems.TRANSMISSION_TALISMAN);
                 entries.add(DaoismItems.RAIN_TALISMAN);
                 entries.add(DaoismItems.LIGHTNING_TALISMAN);
+                entries.add(DaoismItems.IMMOBILIZATION_TALISMAN);
 
                 entries.add(DaoismItems.MERCURY_WOODEN_SWORD);
                 entries.add(DaoismItems.MERCURY_STONE_SWORD);

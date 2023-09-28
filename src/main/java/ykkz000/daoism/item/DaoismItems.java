@@ -37,6 +37,7 @@ public class DaoismItems {
     public static final Item TRANSMISSION_TALISMAN = register("transmission_talisman", new TransmissionTalismanItem(new Item.Settings().maxCount(1).maxDamage(32).fireproof()));
     public static final Item RAIN_TALISMAN = register("rain_talisman", new RainTalismanItem(new Item.Settings().maxCount(16).fireproof()));
     public static final Item LIGHTNING_TALISMAN = register("lightning_talisman", new LightningTalismanItem(new Item.Settings().maxCount(16).fireproof()));
+    public static final Item IMMOBILIZATION_TALISMAN = register("immobilization_talisman", new ImmobilizationTalismanItem(new Item.Settings().maxCount(16).fireproof()));
     public static final Item MERCURY_WOODEN_SWORD = register("mercury_wooden_sword", new MercurySwordItem(ToolMaterials.WOOD, 3, -2.4f, new Item.Settings()));
     public static final Item MERCURY_STONE_SWORD = register("mercury_stone_sword", new MercurySwordItem(ToolMaterials.STONE, 3, -2.4f, new Item.Settings()));
     public static final Item MERCURY_IRON_SWORD = register("mercury_iron_sword", new MercurySwordItem(ToolMaterials.IRON, 3, -2.4f, new Item.Settings()));

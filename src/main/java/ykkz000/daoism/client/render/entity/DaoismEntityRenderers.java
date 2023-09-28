@@ -19,10 +19,12 @@
 package ykkz000.daoism.client.render.entity;
 
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import ykkz000.daoism.entity.DaoismEntityTypes;
 
 public class DaoismEntityRenderers {
     static {
         EntityRendererRegistry.register(DaoismEntityTypes.CHINESE_ZOMBIE, ChineseZombieEntityRenderer::new);
+        EntityRendererRegistry.register(DaoismEntityTypes.IMMOBILIZATION_TALISMAN, FlyingItemEntityRenderer::new);
     }
 }

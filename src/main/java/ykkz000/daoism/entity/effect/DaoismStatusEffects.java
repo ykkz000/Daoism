@@ -26,6 +26,7 @@ import ykkz000.daoism.Daoism;
 
 public class DaoismStatusEffects {
     public static final StatusEffect DEGRADATION = register("degradation", new DegradationEffect());
+    public static final StatusEffect IMMOBILIZATION = register("immobilization", new ImmobilizationEffect());
     public static StatusEffect register(String id, StatusEffect effect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(Daoism.MOD_ID, id), effect);
     }

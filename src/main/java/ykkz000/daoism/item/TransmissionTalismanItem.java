@@ -59,7 +59,7 @@ public class TransmissionTalismanItem extends AbstractTalismanItem {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        if (itemStack != null && world instanceof ServerWorld serverWorld) {
+        if (world instanceof ServerWorld serverWorld) {
             MinecraftServer minecraftServer = serverWorld.getServer();
             if (!TransmissionTalismanItem.hasTarget(itemStack)) {
                 NbtCompound target = new NbtCompound();
@@ -81,13 +81,14 @@ public class TransmissionTalismanItem extends AbstractTalismanItem {
                     user.moveToWorld(targetWorld);
                 }
                 ((ServerPlayerEntity) user).networkHandler.requestTeleport(target.getDouble("x"), target.getDouble("y"), target.getDouble("z"), target.getFloat("yaw"), target.getFloat("pitch"), PositionFlag.ROT);
-                user.getItemCooldownManager().set(this, 20);
                 user.incrementStat(Stats.USED.getOrCreateStat(this));
-                itemStack.damage(1, user, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+                user.getItemCooldownManager().set(this, 20);
+                if (!user.getAbilities().creativeMode) {
+                    itemStack.damage(1, user, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+                }
             }
-            return TypedActionResult.success(itemStack);
         }
-        return super.use(world, user, hand);
+        return TypedActionResult.success(itemStack);
     }
 
     public static boolean hasTarget(ItemStack itemStack) {

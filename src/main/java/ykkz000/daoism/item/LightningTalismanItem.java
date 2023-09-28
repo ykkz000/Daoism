@@ -23,7 +23,7 @@ import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
@@ -37,7 +37,7 @@ public class LightningTalismanItem extends AbstractTalismanItem {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        if (itemStack != null && world instanceof ServerWorld serverWorld) {
+        if (!world.isClient) {
             WorldUtil.filterEntitySurroundEntity(user, world, 10.0, entity -> entity instanceof HostileEntity)
                     .stream()
                     .map(entity -> (HostileEntity) entity)
@@ -47,12 +47,14 @@ public class LightningTalismanItem extends AbstractTalismanItem {
                             return;
                         }
                         lightning.setPosition(entity.getPos());
-                        serverWorld.spawnEntity(lightning);
+                        world.spawnEntity(lightning);
                     });
-            user.getItemCooldownManager().set(this, 200);
-            itemStack.decrement(1);
-            return TypedActionResult.success(itemStack);
         }
-        return super.use(world, user, hand);
+        user.incrementStat(Stats.USED.getOrCreateStat(this));
+        user.getItemCooldownManager().set(this, 200);
+        if (!user.getAbilities().creativeMode) {
+            itemStack.decrement(1);
+        }
+        return TypedActionResult.success(itemStack);
     }
 }
