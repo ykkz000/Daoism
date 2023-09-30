@@ -15,7 +15,8 @@
     "XXX"
   ],
   "result": {
-    "item": "daoism:empty_talisman"
+    "item": "daoism:empty_talisman",
+    "count": 8
   },
   "show_notification": true
 }
