@@ -22,6 +22,7 @@ import com.mojang.logging.LogUtils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.world.gen.GenerationStep;
 import org.slf4j.Logger;
@@ -55,6 +56,6 @@ public class Daoism implements ModInitializer {
         }
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_DECORATION, DaoismPlacedFeatures.ORE_CINNABAR_LOWER);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_DECORATION, DaoismPlacedFeatures.ORE_CINNABAR_UPPER);
-        BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), SpawnGroup.MONSTER, DaoismEntityTypes.CHINESE_ZOMBIE, 4, 1, 2);
+        BiomeModifications.addSpawn(BiomeSelectors.spawnsOneOf(EntityType.ZOMBIE), SpawnGroup.MONSTER, DaoismEntityTypes.CHINESE_ZOMBIE, 4, 1, 2);
     }
 }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:yellow_wool"
+    },
+    "X": {
+      "item": "daoism:cinnabar"
+    }
+  },
+  "pattern": [
+    "## ",
+    "XX ",
+    "## "
+  ],
+  "result": {
+    "item": "daoism:priest_frock"
+  },
+  "show_notification": true
+}
