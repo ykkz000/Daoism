@@ -44,6 +44,7 @@ public class DaoismItems {
     public static final Item MERCURY_GOLDEN_SWORD = register("mercury_golden_sword", new MercurySwordItem(ToolMaterials.GOLD, 3, -2.4f, new Item.Settings()));
     public static final Item MERCURY_DIAMOND_SWORD = register("mercury_diamond_sword", new MercurySwordItem(ToolMaterials.DIAMOND, 3, -2.4f, new Item.Settings()));
     public static final Item MERCURY_NETHERITE_SWORD = register("mercury_netherite_sword", new MercurySwordItem(ToolMaterials.NETHERITE, 3, -2.4f, new Item.Settings()));
+    public static final Item PRIEST_FROCK = register("priest_frock", new PriestFrockItem(new Item.Settings().maxDamage(512).fireproof()));
     public static <T extends Item> T register(String id, T item) {
         return Registry.register(Registries.ITEM, new Identifier(Daoism.MOD_ID, id), item);
     }

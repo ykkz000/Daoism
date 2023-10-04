@@ -86,7 +86,9 @@ public class AltarScreen extends HandledScreen<AltarScreenHandler> {
                 List<Text> tooltips = Screen.getTooltipFromItem(this.client, stack);
                 tooltips.add(Daoism.I18N.translate("text", "experience_consume", recipe.getExperience())
                         .formatted(Formatting.BLUE));
-                if (recipe.getExperience() > this.client.player.experienceLevel) {
+                if (AltarScreenHandler.canPlayerFreeFromExp(this.client.player)) {
+                    tooltips.add(Daoism.I18N.translate("text", "experience_free").formatted(Formatting.GREEN));
+                } else if (recipe.getExperience() > this.client.player.experienceLevel) {
                     tooltips.add(Daoism.I18N.translate("text", "experience_not_enough").formatted(Formatting.RED));
                 }
                 context.drawTooltip(this.textRenderer, tooltips, stack.getTooltipData(), x, y);
@@ -102,7 +104,7 @@ public class AltarScreen extends HandledScreen<AltarScreenHandler> {
             int l = j / 4;
             int m = y + l * 18 + 2;
             int n = this.backgroundHeight;
-            if (this.client != null && this.client.player != null && this.client.player.experienceLevel < list.get(i).getExperience()) {
+            if (this.client != null && this.client.player != null && !AltarScreenHandler.canPlayerFreeFromExp(this.client.player) && this.client.player.experienceLevel < list.get(i).getExperience()) {
                 n += 54;
             } else if (i == this.handler.getCurrentIndex()) {
                 n += 18;

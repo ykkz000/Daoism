@@ -52,6 +52,8 @@ public class DaoismItemGroups {
                 entries.add(DaoismItems.MERCURY_GOLDEN_SWORD);
                 entries.add(DaoismItems.MERCURY_DIAMOND_SWORD);
                 entries.add(DaoismItems.MERCURY_NETHERITE_SWORD);
+
+                entries.add(DaoismItems.PRIEST_FROCK);
             });
 
     private static ItemGroup register(String id, Supplier<ItemStack> icon, ItemGroup.EntryCollector entryCollector) {

@@ -13,6 +13,7 @@
   "item.daoism.mercury_golden_sword": "Golden Sword With Mercury",
   "item.daoism.mercury_diamond_sword": "Diamond Sword With Mercury",
   "item.daoism.mercury_netherite_sword": "Netherite Sword With Mercury",
+  "item.daoism.priest_frock": "Priest Frock",
 
   "block.daoism.altar": "Altar",
   "block.daoism.cinnabar_ore": "Cinnabar Ore",
@@ -29,6 +30,7 @@
 
   "text.daoism.experience_consume": "Experience consume: %s",
   "text.daoism.experience_not_enough": "Experience is not enough",
+  "text.daoism.experience_free": "Free from costing experience",
 
   "advancements.daoism.story.mine_cinnabar.description": "Acquire cinnabar",
   "advancements.daoism.story.mine_cinnabar.title": "Take Flight to the Land of the Immortal",

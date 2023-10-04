@@ -18,7 +18,9 @@
 
 package ykkz000.daoism.screen;
 
+import dev.emi.trinkets.api.TrinketsApi;
 import lombok.Getter;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -38,7 +40,7 @@ import ykkz000.daoism.recipe.TalismanRecipe;
 import java.util.List;
 
 public class AltarScreenHandler extends ScreenHandler {
-    private final Inventory input = new SimpleInventory(1){
+    private final Inventory input = new SimpleInventory(1) {
         @Override
         public void markDirty() {
             super.markDirty();
@@ -64,7 +66,7 @@ public class AltarScreenHandler extends ScreenHandler {
         super(DaoismScreenHandlerTypes.ALTAR, syncId);
         int i;
         this.context = context;
-        this.inputSlot = this.addSlot(new Slot(this.input, 0, 20, 33){
+        this.inputSlot = this.addSlot(new Slot(this.input, 0, 20, 33) {
 
             @Override
             public boolean canInsert(ItemStack stack) {
@@ -79,8 +81,18 @@ public class AltarScreenHandler extends ScreenHandler {
 
             @Override
             public void onTakeItem(PlayerEntity player, ItemStack stack) {
+                int cost = player.getAbilities().creativeMode ? 0 : AltarScreenHandler.this.recipes.get(currentIndex).getExperience();
                 stack.onCraft(player.getWorld(), player, stack.getCount());
-                player.experienceLevel -= player.getAbilities().creativeMode ? 0 : AltarScreenHandler.this.recipes.get(currentIndex).getExperience();
+                if (AltarScreenHandler.canPlayerFreeFromExp(player)) {
+                    TrinketsApi.getTrinketComponent(player)
+                            .map(component -> component.getEquipped(DaoismItems.PRIEST_FROCK).stream().findFirst()
+                                    .map(pair -> {
+                                        pair.getRight().damage(cost, player, e -> e.sendEquipmentBreakStatus(EquipmentSlot.CHEST));
+                                        return true;
+                                    }).orElse(false));
+                } else {
+                    player.experienceLevel -= cost;
+                }
                 ItemStack itemStack = AltarScreenHandler.this.inputSlot.takeStack(1);
                 if (!itemStack.isEmpty()) {
                     AltarScreenHandler.this.populateResult();
@@ -123,7 +135,7 @@ public class AltarScreenHandler extends ScreenHandler {
     public boolean onButtonClick(PlayerEntity player, int id) {
         if (this.isInBound(id)) {
             TalismanRecipe recipe = this.recipes.get(id);
-            if (!this.input.getStack(0).isEmpty() && (player.experienceLevel >= recipe.getExperience() || player.getAbilities().creativeMode)) {
+            if (!this.input.getStack(0).isEmpty() && (player.experienceLevel >= recipe.getExperience() || player.getAbilities().creativeMode || AltarScreenHandler.canPlayerFreeFromExp(player))) {
                 this.currentIndex = id;
                 this.populateResult();
                 return true;
@@ -194,5 +206,10 @@ public class AltarScreenHandler extends ScreenHandler {
             this.outputSlot.setStackNoCallbacks(ItemStack.EMPTY);
         }
         this.sendContentUpdates();
+    }
+
+
+    public static boolean canPlayerFreeFromExp(PlayerEntity player) {
+        return TrinketsApi.getTrinketComponent(player).map(component -> component.isEquipped(DaoismItems.PRIEST_FROCK)).orElse(false);
     }
 }

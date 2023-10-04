@@ -13,6 +13,7 @@
   "item.daoism.mercury_golden_sword": "带汞的金剑",
   "item.daoism.mercury_diamond_sword": "带汞的钻石剑",
   "item.daoism.mercury_netherite_sword": "带汞的下届合金剑",
+  "item.daoism.priest_frock": "道袍",
 
   "block.daoism.altar": "法坛",
   "block.daoism.cinnabar_ore": "朱砂矿",
@@ -29,6 +30,7 @@
 
   "text.daoism.experience_consume": "消耗%s级经验",
   "text.daoism.experience_not_enough": "经验不足",
+  "text.daoism.experience_free": "免除经验消耗",
 
   "advancements.daoism.story.mine_cinnabar.description": "获得朱砂",
   "advancements.daoism.story.mine_cinnabar.title": "羽化登仙",
