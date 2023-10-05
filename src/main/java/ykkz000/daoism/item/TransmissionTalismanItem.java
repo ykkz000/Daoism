@@ -18,6 +18,7 @@
 
 package ykkz000.daoism.item;
 
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -26,15 +27,18 @@ import net.minecraft.network.packet.s2c.play.PositionFlag;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
+import java.util.List;
+import java.util.Optional;
 
 public class TransmissionTalismanItem extends AbstractTalismanItem {
     public TransmissionTalismanItem(Settings settings) {
@@ -61,34 +65,32 @@ public class TransmissionTalismanItem extends AbstractTalismanItem {
         ItemStack itemStack = user.getStackInHand(hand);
         if (world instanceof ServerWorld serverWorld) {
             MinecraftServer minecraftServer = serverWorld.getServer();
-            if (!TransmissionTalismanItem.hasTarget(itemStack)) {
-                NbtCompound target = new NbtCompound();
-                target.putString("world", world.getRegistryKey().getValue().toString());
-                target.putDouble("x", user.getX());
-                target.putDouble("y", user.getY());
-                target.putDouble("z", user.getZ());
-                target.putFloat("yaw", user.getYaw());
-                target.putFloat("pitch", user.getPitch());
-                itemStack.setSubNbt("target", target);
+            if (TransmissionTalismanItem.hasTarget(itemStack)) {
+                return TransmissionTalismanItem.getTarget(itemStack).map(target -> {
+                    ServerWorld targetWorld = minecraftServer.getWorld(RegistryKey.of(RegistryKeys.WORLD, target.destination()));
+                    if (targetWorld == null) {
+                        return TypedActionResult.fail(itemStack);
+                    }
+                    user.teleport(targetWorld, target.x(), target.y(), target.z(), PositionFlag.ROT, target.yaw(), target.pitch());
+                    user.incrementStat(Stats.USED.getOrCreateStat(this));
+                    user.getItemCooldownManager().set(this, 20);
+                    if (!user.getAbilities().creativeMode) {
+                        itemStack.damage(1, user, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+                    }
+                    return TypedActionResult.success(itemStack);
+                }).orElse(TypedActionResult.fail(itemStack));
             } else {
-                NbtCompound target = itemStack.getSubNbt("target");
-                assert target != null;
-                ServerWorld targetWorld = minecraftServer.getWorld(RegistryKey.of(RegistryKeys.WORLD, new Identifier(target.getString("world"))));
-                if (targetWorld == null) {
-                    return TypedActionResult.fail(itemStack);
-                }
-                if (!Objects.equals(user.getWorld().getRegistryKey().getValue().toString(), targetWorld.getRegistryKey().getValue().toString())) {
-                    user.moveToWorld(targetWorld);
-                }
-                ((ServerPlayerEntity) user).networkHandler.requestTeleport(target.getDouble("x"), target.getDouble("y"), target.getDouble("z"), target.getFloat("yaw"), target.getFloat("pitch"), PositionFlag.ROT);
-                user.incrementStat(Stats.USED.getOrCreateStat(this));
-                user.getItemCooldownManager().set(this, 20);
-                if (!user.getAbilities().creativeMode) {
-                    itemStack.damage(1, user, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
-                }
+                Target target = Target.from(user, world);
+                itemStack.setSubNbt("target", target.toNbt());
             }
         }
         return TypedActionResult.success(itemStack);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        super.appendTooltip(stack, world, tooltip, context);
+        TransmissionTalismanItem.getTarget(stack).ifPresent(target -> tooltip.add(Text.literal(target.toString()).formatted(Formatting.GREEN)));
     }
 
     public static boolean hasTarget(ItemStack itemStack) {
@@ -97,5 +99,42 @@ public class TransmissionTalismanItem extends AbstractTalismanItem {
         }
         NbtCompound target = itemStack.getSubNbt("target");
         return target != null && !target.isEmpty();
+    }
+
+    public static Optional<Target> getTarget(ItemStack itemStack) {
+        if (!TransmissionTalismanItem.hasTarget(itemStack)) {
+            return Optional.empty();
+        }
+        NbtCompound targetNbt = itemStack.getSubNbt("target");
+        if (targetNbt == null) {
+            return Optional.empty();
+        }
+        return Optional.of(Target.fromNbt(targetNbt));
+    }
+
+    public record Target(Identifier destination, double x, double y, double z, float yaw, float pitch){
+        @Override
+        public String toString() {
+            return String.format("%s (%.2f, %.2f, %.2f) %.2f %.2f", destination, x, y, z, yaw, pitch);
+        }
+
+        public NbtCompound toNbt() {
+            NbtCompound targetNbt = new NbtCompound();
+            targetNbt.putString("world", destination.toString());
+            targetNbt.putDouble("x", x);
+            targetNbt.putDouble("y", y);
+            targetNbt.putDouble("z", z);
+            targetNbt.putFloat("yaw",yaw);
+            targetNbt.putFloat("pitch", pitch);
+            return targetNbt;
+        }
+
+        public static Target fromNbt(NbtCompound targetNbt) {
+            return new Target(new Identifier(targetNbt.getString("world")), targetNbt.getDouble("x"), targetNbt.getDouble("y"), targetNbt.getDouble("z"), targetNbt.getFloat("yaw"), targetNbt.getFloat("pitch"));
+        }
+
+        public static Target from(PlayerEntity user, World world) {
+            return new Target(world.getRegistryKey().getValue(), user.getX(), user.getY(), user.getZ(), user.getYaw(), user.getPitch());
+        }
     }
 }
