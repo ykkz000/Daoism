@@ -19,30 +19,24 @@
 package ykkz000.daoism.entity.effect;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import ykkz000.daoism.entity.damage.DaoismDamageTypes;
-import ykkz000.daoism.entity.mob.ChineseZombieEntity;
 
-public class DegradationEffect extends TickStatusEffect {
+public class DegradationEffect extends StatusEffect {
     public DegradationEffect() {
         super(StatusEffectCategory.HARMFUL, 0x666666);
     }
 
     @Override
-    public boolean canUpdateEffect(int tick, LivingEntity entity, int amplifier) {
-        return tickTime % (80 >> amplifier) == 0 || entity.isDead();
+    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+        return duration % (10 >> amplifier) == 1;
     }
 
     @Override
-    public void updateEffect(int tick, LivingEntity entity, int amplifier) {
-        if (entity.getWorld() instanceof ServerWorld) {
-            if (entity instanceof PlayerEntity playerEntity) {
-                playerEntity.damage(playerEntity.getDamageSources().create(DaoismDamageTypes.DEGRADATION), playerEntity.getHealth() / 2f);
-            } else {
-                ChineseZombieEntity.infect(entity);
-            }
-        }
+    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+        float amount = (entity instanceof PlayerEntity && entity.getHealth() <= entity.getMaxHealth() * 0.2f) ? 0f : entity.getMaxHealth() * 0.2f;
+        entity.damage(entity.getDamageSources().create(DaoismDamageTypes.DEGRADATION), amount);
     }
 }

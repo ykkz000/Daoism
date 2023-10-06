@@ -4,6 +4,7 @@
   "package": "ykkz000.daoism.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "LivingEntityMixin"
   ],
   "client": [
   ],
