@@ -18,23 +18,28 @@
 
 package ykkz000.daoism.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.entity.*;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.Heightmap;
 import ykkz000.daoism.Daoism;
 import ykkz000.daoism.entity.mob.ChineseZombieEntity;
 import ykkz000.daoism.entity.projectile.thrown.ImmobilizationTalismanEntity;
 
 public class DaoismEntityTypes {
-    public static final EntityType<ChineseZombieEntity> CHINESE_ZOMBIE = register("chinese_zombie", builder(ChineseZombieEntity::new, SpawnGroup.MONSTER, ChineseZombieEntity.class).setDimensions(0.6f, 1.95f).maxTrackingRange(8));
-    public static final EntityType<ImmobilizationTalismanEntity> IMMOBILIZATION_TALISMAN = register("immobilization_talisman", builder(ImmobilizationTalismanEntity::new, SpawnGroup.MISC, ImmobilizationTalismanEntity.class).setDimensions(0.25f, 0.25f).maxTrackingRange(4).trackingTickInterval(10));
-    public static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> type) {
-        return Registry.register(Registries.ENTITY_TYPE, new Identifier(Daoism.MOD_ID, id), type.build(id));
+    public static final EntityType<ChineseZombieEntity> CHINESE_ZOMBIE = register("chinese_zombie", mobBuilder(ChineseZombieEntity::new, SpawnGroup.MONSTER, ChineseZombieEntity.class).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).trackRangeChunks(8).defaultAttributes(ChineseZombieEntity::createChineseZombieAttributes).spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark).build());
+    public static final EntityType<ImmobilizationTalismanEntity> IMMOBILIZATION_TALISMAN = register("immobilization_talisman", builder(ImmobilizationTalismanEntity::new, SpawnGroup.MISC, ImmobilizationTalismanEntity.class).dimensions(EntityDimensions.fixed(0.25f, 0.25f)).trackRangeChunks(4).trackedUpdateRate(10).build());
+    public static <T extends Entity> EntityType<T> register(String id, EntityType<T> type) {
+        return Registry.register(Registries.ENTITY_TYPE, new Identifier(Daoism.MOD_ID, id), type);
     }
-    public static <T extends Entity> EntityType.Builder<T> builder(EntityType.EntityFactory<T> factory, SpawnGroup spawnGroup, Class<T> clazz) {
-        return EntityType.Builder.create(factory, spawnGroup);
+    public static <T extends MobEntity> FabricEntityTypeBuilder.Mob<T> mobBuilder(EntityType.EntityFactory<T> factory, SpawnGroup spawnGroup, Class<T> clazz) {
+        return FabricEntityTypeBuilder.createMob().spawnGroup(spawnGroup).entityFactory(factory);
+    }
+    public static <T extends Entity> FabricEntityTypeBuilder<T> builder(EntityType.EntityFactory<T> factory, SpawnGroup spawnGroup, Class<T> clazz) {
+        return FabricEntityTypeBuilder.create(spawnGroup, factory);
     }
 }

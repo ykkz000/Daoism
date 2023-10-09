@@ -45,8 +45,6 @@ public class Daoism implements ModInitializer {
             Class.forName("ykkz000.daoism.item.DaoismItems");
             Class.forName("ykkz000.daoism.item.DaoismItemGroups");
             Class.forName("ykkz000.daoism.entity.DaoismEntityTypes");
-            Class.forName("ykkz000.daoism.entity.DaoismSpawnRestrictions");
-            Class.forName("ykkz000.daoism.entity.attribute.DaoismAttributeRegistry");
             Class.forName("ykkz000.daoism.entity.effect.DaoismStatusEffects");
             Class.forName("ykkz000.daoism.recipe.DaoismRecipeTypes");
             Class.forName("ykkz000.daoism.recipe.DaoismRecipeSerializers");
@@ -57,6 +55,6 @@ public class Daoism implements ModInitializer {
         }
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_DECORATION, DaoismPlacedFeatures.ORE_CINNABAR_LOWER);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_DECORATION, DaoismPlacedFeatures.ORE_CINNABAR_UPPER);
-        BiomeModifications.addSpawn(BiomeSelectors.spawnsOneOf(EntityType.ZOMBIE), SpawnGroup.MONSTER, DaoismEntityTypes.CHINESE_ZOMBIE, 4, 1, 2);
+        BiomeModifications.addSpawn(BiomeSelectors.spawnsOneOf(EntityType.ZOMBIE), SpawnGroup.MONSTER, DaoismEntityTypes.CHINESE_ZOMBIE, 100, 2, 4);
     }
 }
