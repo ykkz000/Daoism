@@ -75,11 +75,6 @@ public class ChineseZombieEntity extends ZombieEntity {
     }
 
     @Override
-    public boolean onKilledOther(ServerWorld world, LivingEntity other) {
-        return true;
-    }
-
-    @Override
     public boolean tryAttack(Entity target) {
         boolean ret = super.tryAttack(target);
         if (ret && target instanceof LivingEntity livingEntity) {
@@ -108,5 +103,4 @@ public class ChineseZombieEntity extends ZombieEntity {
             entity.discard();
         }
     }
-
 }
