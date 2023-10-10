@@ -32,7 +32,7 @@ public class DegradationEffect extends StatusEffect {
 
     @Override
     public boolean canApplyUpdateEffect(int duration, int amplifier) {
-        return duration % (10 >> amplifier) == 1;
+        return duration % Math.max(10 >> amplifier, 1) == 0;
     }
 
     @Override
