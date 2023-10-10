@@ -22,6 +22,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.MathHelper;
 import ykkz000.daoism.entity.damage.DaoismDamageTypes;
 
 public class DegradationEffect extends StatusEffect {
@@ -36,7 +37,7 @@ public class DegradationEffect extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        float amount = (entity instanceof PlayerEntity && entity.getHealth() <= entity.getMaxHealth() * 0.2f) ? 0f : entity.getMaxHealth() * 0.2f;
+        float amount = entity instanceof PlayerEntity ? MathHelper.clamp(entity.getHealth() - entity.getMaxHealth() * 0.2f, 0.0f, entity.getMaxHealth() * 0.2f) : entity.getMaxHealth() * 0.2f;
         entity.damage(entity.getDamageSources().create(DaoismDamageTypes.DEGRADATION), amount);
     }
 }
