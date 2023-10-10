@@ -46,6 +46,7 @@ public class Daoism implements ModInitializer {
             Class.forName("ykkz000.daoism.item.DaoismItemGroups");
             Class.forName("ykkz000.daoism.entity.DaoismEntityTypes");
             Class.forName("ykkz000.daoism.entity.effect.DaoismStatusEffects");
+            Class.forName("ykkz000.daoism.enchantment.DaoismEnchantments");
             Class.forName("ykkz000.daoism.recipe.DaoismRecipeTypes");
             Class.forName("ykkz000.daoism.recipe.DaoismRecipeSerializers");
             Class.forName("ykkz000.daoism.screen.DaoismScreenHandlerTypes");

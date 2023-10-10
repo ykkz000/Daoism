@@ -18,12 +18,14 @@
 
 package ykkz000.daoism.item;
 
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
+import ykkz000.daoism.enchantment.DaoismEnchantments;
 
 public class MercurySwordItem extends SwordItem {
     private static final double POISON_RATE = 0.1;
@@ -33,7 +35,8 @@ public class MercurySwordItem extends SwordItem {
 
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (Math.random() < POISON_RATE) {
+        int level = EnchantmentHelper.getLevel(DaoismEnchantments.MERCURY_POISON, stack);
+        if (Math.random() < POISON_RATE * (level * 0.5 + 1.0)) {
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 80, 1), attacker);
         }
         return super.postHit(stack, target, attacker);
