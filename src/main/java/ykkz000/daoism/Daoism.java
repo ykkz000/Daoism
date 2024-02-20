@@ -51,6 +51,7 @@ public class Daoism implements ModInitializer {
             Class.forName("ykkz000.daoism.recipe.DaoismRecipeSerializers");
             Class.forName("ykkz000.daoism.screen.DaoismScreenHandlerTypes");
             Class.forName("ykkz000.daoism.world.gen.feature.DaoismPlacedFeatures");
+            Class.forName("ykkz000.daoism.skill.DaoismSkills");
         } catch (ClassNotFoundException e) {
             LOGGER.error("Cannot Initialize this MOD, caused by", e);
         }

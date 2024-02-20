@@ -18,6 +18,7 @@
 
 package ykkz000.daoism.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -44,9 +45,15 @@ import ykkz000.daoism.block.entity.DaoismBlockEntityTypes;
 import ykkz000.daoism.screen.AltarScreenHandler;
 
 public class AltarBlock extends BlockWithEntity {
+    public static final MapCodec<AltarBlock> CODEC = AltarBlock.createCodec(AltarBlock::new);
     protected static final VoxelShape SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 12.0, 16.0);
     public AltarBlock(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Override
@@ -62,7 +69,7 @@ public class AltarBlock extends BlockWithEntity {
     @Override
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? BlockWithEntity.checkType(type, DaoismBlockEntityTypes.ALTAR, AltarBlockEntity::tick) : null;
+        return world.isClient ? BlockWithEntity.validateTicker(type, DaoismBlockEntityTypes.ALTAR, AltarBlockEntity::tick) : null;
     }
 
     @Override

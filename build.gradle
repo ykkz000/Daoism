@@ -20,6 +20,20 @@ repositories {
         name = "Ladysnake Libs"
         url = 'https://maven.ladysnake.org/releases'
     }
+    maven {
+        credentials {
+            username '63f608d25bcd108b0765c428'
+            password 'At(L(RH7g5sv'
+        }
+        url 'https://packages.aliyun.com/maven/repository/2334497-release-xYw66J/'
+    }
+    maven {
+        credentials {
+            username '63f608d25bcd108b0765c428'
+            password 'At(L(RH7g5sv'
+        }
+        url 'https://packages.aliyun.com/maven/repository/2334497-snapshot-qUPlEb/'
+    }
 }
 
 dependencies {
@@ -31,7 +45,10 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
     modImplementation "dev.emi:trinkets:${trinkets_version}"
+    modImplementation "ykkz000.skill:skill:${skill_version}"
 
     //lombok
     compileOnly "org.projectlombok:lombok:1.18.28"

@@ -18,8 +18,11 @@
 
 package ykkz000.daoism.mixin;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.mob.MobEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,6 +38,20 @@ public abstract class LivingEntityMixin {
     public void onDeath(DamageSource cause, CallbackInfo ci) {
         if (!getThis().isPlayer() && cause.getTypeRegistryEntry().getKey().map(DaoismDamageTypes.DEGRADATION::equals).orElse(false) || cause.getAttacker() instanceof ChineseZombieEntity || getThis().hasStatusEffect(DaoismStatusEffects.DEGRADATION)) {
             ChineseZombieEntity.infect(getThis());
+        }
+    }
+
+    @Inject(method = "onStatusEffectApplied(Lnet/minecraft/entity/effect/StatusEffectInstance;Lnet/minecraft/entity/Entity;)V", at = @At("RETURN"))
+    public void onStatusEffectApplied(StatusEffectInstance effect, Entity source, CallbackInfo ci) {
+        if (effect.getEffectType() == DaoismStatusEffects.IMMOBILIZATION && getThis() instanceof MobEntity mobEntity) {
+            mobEntity.setAiDisabled(true);
+        }
+    }
+
+    @Inject(method = "onStatusEffectRemoved(Lnet/minecraft/entity/effect/StatusEffectInstance;)V", at = @At("RETURN"))
+    public void onStatusEffectRemoved(StatusEffectInstance effect, CallbackInfo ci) {
+        if (effect.getEffectType() == DaoismStatusEffects.IMMOBILIZATION && getThis() instanceof MobEntity mobEntity) {
+            mobEntity.setAiDisabled(false);
         }
     }
 

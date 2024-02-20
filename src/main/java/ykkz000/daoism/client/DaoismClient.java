@@ -22,11 +22,21 @@ import com.mojang.logging.LogUtils;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
+import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
+import ykkz000.daoism.Daoism;
+import ykkz000.daoism.skill.DaoismSkills;
+import ykkz000.skill.api.client.SkillClientAPI;
 
 @Environment(EnvType.CLIENT)
 public class DaoismClient implements ClientModInitializer {
     private static final Logger LOGGER = LogUtils.getLogger();
+    private static final String SKILL_CATEGORY = Util.createTranslationKey("category", new Identifier(Daoism.MOD_ID, "skill"));
     /**
      * Runs the mod initializer on the client environment.
      */
@@ -40,5 +50,8 @@ public class DaoismClient implements ClientModInitializer {
         } catch (ClassNotFoundException e) {
             LOGGER.error("Cannot Initialize this MOD, caused by", e);
         }
+        SkillClientAPI.bindSkill(DaoismSkills.FLASH.getId(), KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                DaoismSkills.FLASH.getTranslationKey(), InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, SKILL_CATEGORY
+        )));
     }
 }

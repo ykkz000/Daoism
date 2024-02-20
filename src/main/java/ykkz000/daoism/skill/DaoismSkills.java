@@ -16,18 +16,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package ykkz000.daoism.recipe;
+package ykkz000.daoism.skill;
 
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import ykkz000.daoism.Daoism;
+import ykkz000.skill.api.SkillMainAPI;
+import ykkz000.skill.api.skill.Skill;
 
-public class DaoismRecipeSerializers {
-    public static final RecipeSerializer<TalismanRecipe> TALISMAN = register("talisman", new TalismanRecipeSerializer(TalismanRecipe::new));
-    public static <S extends RecipeSerializer<T>, T extends Recipe<?>> S register(String id, S serializer) {
-        return Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(Daoism.MOD_ID, id), serializer);
-    }
+public class DaoismSkills {
+    public static final Skill FLASH = SkillMainAPI.registerSkill(new Identifier(Daoism.MOD_ID, "flash"), new FlashSkill());
 }

@@ -27,6 +27,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
@@ -40,6 +41,7 @@ import ykkz000.daoism.recipe.TalismanRecipe;
 import java.util.List;
 
 public class AltarScreenHandler extends ScreenHandler {
+    public static final int EXP_TO_DAMAGE = 10;
     private final Inventory input = new SimpleInventory(1) {
         @Override
         public void markDirty() {
@@ -54,7 +56,7 @@ public class AltarScreenHandler extends ScreenHandler {
     private final Slot outputSlot;
     private final World world;
     @Getter
-    private List<TalismanRecipe> recipes = Lists.newArrayList();
+    private List<RecipeEntry<TalismanRecipe>> recipes = Lists.newArrayList();
     @Getter
     private int currentIndex = -1;
 
@@ -81,13 +83,13 @@ public class AltarScreenHandler extends ScreenHandler {
 
             @Override
             public void onTakeItem(PlayerEntity player, ItemStack stack) {
-                int cost = player.getAbilities().creativeMode ? 0 : AltarScreenHandler.this.recipes.get(currentIndex).getExperience();
-                stack.onCraft(player.getWorld(), player, stack.getCount());
-                if (AltarScreenHandler.canPlayerFreeFromExp(player)) {
+                int cost = player.getAbilities().creativeMode ? 0 : AltarScreenHandler.this.recipes.get(currentIndex).value().getExperience();
+                stack.onCraftByPlayer(player.getWorld(), player, stack.getCount());
+                if (AltarScreenHandler.canPlayerFreeFromExp(player, cost * EXP_TO_DAMAGE)) {
                     TrinketsApi.getTrinketComponent(player)
                             .map(component -> component.getEquipped(DaoismItems.PRIEST_FROCK).stream().findFirst()
                                     .map(pair -> {
-                                        pair.getRight().damage(cost, player, e -> e.sendEquipmentBreakStatus(EquipmentSlot.CHEST));
+                                        pair.getRight().damage(cost * EXP_TO_DAMAGE, player, e -> e.sendEquipmentBreakStatus(EquipmentSlot.CHEST));
                                         return true;
                                     }).orElse(false));
                 } else {
@@ -134,8 +136,8 @@ public class AltarScreenHandler extends ScreenHandler {
     @Override
     public boolean onButtonClick(PlayerEntity player, int id) {
         if (this.isInBound(id)) {
-            TalismanRecipe recipe = this.recipes.get(id);
-            if (!this.input.getStack(0).isEmpty() && (player.experienceLevel >= recipe.getExperience() || player.getAbilities().creativeMode || AltarScreenHandler.canPlayerFreeFromExp(player))) {
+            TalismanRecipe recipe = this.recipes.get(id).value();
+            if (!this.input.getStack(0).isEmpty() && (player.experienceLevel >= recipe.getExperience() || player.getAbilities().creativeMode || AltarScreenHandler.canPlayerFreeFromExp(player, recipe.getExperience() * EXP_TO_DAMAGE))) {
                 this.currentIndex = id;
                 this.populateResult();
                 return true;
@@ -160,7 +162,7 @@ public class AltarScreenHandler extends ScreenHandler {
             Item item = itemStack2.getItem();
             itemStack = itemStack2.copy();
             if (slot == 1) {
-                item.onCraft(itemStack2, player.getWorld(), player);
+                item.onCraft(itemStack2, player.getWorld());
                 if (!this.insertItem(itemStack2, 2, 38, true)) {
                     return ItemStack.EMPTY;
                 }
@@ -169,6 +171,7 @@ public class AltarScreenHandler extends ScreenHandler {
                     !this.insertItem(itemStack2, 2, 38, false) :
                     this.recipes
                             .stream()
+                            .map(RecipeEntry::value)
                             .anyMatch(recipe -> recipe.craft(this.input, this.world.getRegistryManager()).getItem().getTranslationKey().equals(itemStack2.getItem().getTranslationKey())) ?
                             !this.insertItem(itemStack2, 0, 1, false) :
                             (slot >= 2 && slot < 29 ?
@@ -195,7 +198,7 @@ public class AltarScreenHandler extends ScreenHandler {
 
     public void populateResult() {
         if (!this.recipes.isEmpty() && this.isInBound(this.currentIndex)) {
-            TalismanRecipe recipe = this.recipes.get(this.currentIndex);
+            TalismanRecipe recipe = this.recipes.get(this.currentIndex).value();
             ItemStack itemStack = recipe.craft(this.input, this.world.getRegistryManager());
             if (itemStack.isItemEnabled(this.world.getEnabledFeatures())) {
                 this.outputSlot.setStackNoCallbacks(itemStack);
@@ -209,7 +212,10 @@ public class AltarScreenHandler extends ScreenHandler {
     }
 
 
-    public static boolean canPlayerFreeFromExp(PlayerEntity player) {
-        return TrinketsApi.getTrinketComponent(player).map(component -> component.isEquipped(DaoismItems.PRIEST_FROCK)).orElse(false);
+    public static boolean canPlayerFreeFromExp(PlayerEntity player, int expiredDamage) {
+        return TrinketsApi.getTrinketComponent(player)
+                .map(component -> component.getEquipped(DaoismItems.PRIEST_FROCK).stream().findFirst()
+                        .map(pair -> pair.getRight().getMaxDamage() - pair.getRight().getDamage() >= expiredDamage)
+                        .orElse(false)).orElse(false);
     }
 }

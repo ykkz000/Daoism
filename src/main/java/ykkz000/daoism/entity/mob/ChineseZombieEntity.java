@@ -29,6 +29,7 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import ykkz000.daoism.entity.DaoismEntityTypes;
@@ -84,8 +85,17 @@ public class ChineseZombieEntity extends ZombieEntity {
     }
 
     @Override
-    public double squaredAttackRange(LivingEntity target) {
-        return super.squaredAttackRange(target) * 1.44;
+    protected Box getAttackBox() {
+        Box box3;
+        Entity entity = this.getVehicle();
+        if (entity != null) {
+            Box box = entity.getBoundingBox();
+            Box box2 = this.getBoundingBox();
+            box3 = new Box(Math.min(box2.minX, box.minX), box2.minY, Math.min(box2.minZ, box.minZ), Math.max(box2.maxX, box.maxX), box2.maxY, Math.max(box2.maxZ, box.maxZ));
+        } else {
+            box3 = this.getBoundingBox();
+        }
+        return box3.expand(1.0, 0.0, 1.0);
     }
 
     @Override

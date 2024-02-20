@@ -37,5 +37,7 @@
   "advancements.daoism.story.mine_cinnabar.description": "Acquire cinnabar",
   "advancements.daoism.story.mine_cinnabar.title": "Take Flight to the Land of the Immortal",
 
-  "death.attack.degradation": "%1$s death because of degradation"
+  "death.attack.degradation": "%1$s death because of degradation",
+
+  "skill.daoism.flash": "Flash"
 }

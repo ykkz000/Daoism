@@ -18,13 +18,11 @@
 
 package ykkz000.daoism.entity.effect;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.entity.mob.MobEntity;
 
 public class ImmobilizationEffect extends StatusEffect {
     protected ImmobilizationEffect() {
@@ -36,18 +34,7 @@ public class ImmobilizationEffect extends StatusEffect {
     }
 
     @Override
-    public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        super.onApplied(entity, attributes, amplifier);
-        if (entity instanceof MobEntity mobTarget) {
-            mobTarget.setAiDisabled(true);
-        }
-    }
-
-    @Override
-    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        super.onRemoved(entity, attributes, amplifier);
-        if (entity instanceof MobEntity mobTarget) {
-            mobTarget.setAiDisabled(false);
-        }
+    public void onRemoved(AttributeContainer attributeContainer) {
+        super.onRemoved(attributeContainer);
     }
 }

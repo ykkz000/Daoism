@@ -31,8 +31,8 @@ import ykkz000.daoism.Daoism;
 
 public class DaoismBlocks {
     public static final Block ALTAR = register("altar", new AltarBlock(FabricBlockSettings.create().strength(20f, 1200f).requiresTool()));
-    public static final Block CINNABAR_ORE = register("cinnabar_ore", new ExperienceDroppingBlock(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).instrument(Instrument.BASEDRUM).requiresTool().strength(3.0f, 3.0f), UniformIntProvider.create(0, 2)));
-    public static final Block DEEPSLATE_CINNABAR_ORE = register("deepslate_cinnabar_ore", new ExperienceDroppingBlock(AbstractBlock.Settings.copy(CINNABAR_ORE).mapColor(MapColor.DEEPSLATE_GRAY).strength(4.5f, 3.0f).sounds(BlockSoundGroup.DEEPSLATE), UniformIntProvider.create(0, 2)));
+    public static final Block CINNABAR_ORE = register("cinnabar_ore", new ExperienceDroppingBlock(UniformIntProvider.create(0, 2), AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).instrument(Instrument.BASEDRUM).requiresTool().strength(3.0f, 3.0f)));
+    public static final Block DEEPSLATE_CINNABAR_ORE = register("deepslate_cinnabar_ore", new ExperienceDroppingBlock(UniformIntProvider.create(0, 2), AbstractBlock.Settings.copy(CINNABAR_ORE).mapColor(MapColor.DEEPSLATE_GRAY).strength(4.5f, 3.0f).sounds(BlockSoundGroup.DEEPSLATE)));
     public static final Block CINNABAR_BLOCK = register("cinnabar_block", new Block(AbstractBlock.Settings.create().mapColor(MapColor.BRIGHT_RED).instrument(Instrument.BASEDRUM).requiresTool().strength(5.0f, 6.0f)));
     public static Block register(String id, Block block) {
         return Registry.register(Registries.BLOCK, new Identifier(Daoism.MOD_ID, id), block);

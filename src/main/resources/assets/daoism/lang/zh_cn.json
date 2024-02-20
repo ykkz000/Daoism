@@ -37,5 +37,7 @@
   "advancements.daoism.story.mine_cinnabar.description": "获得朱砂",
   "advancements.daoism.story.mine_cinnabar.title": "羽化登仙",
 
-  "death.attack.degradation": "%1$s因为堕化死亡"
+  "death.attack.degradation": "%1$s因为堕化死亡",
+
+  "skill.daoism.flash": "闪现"
 }

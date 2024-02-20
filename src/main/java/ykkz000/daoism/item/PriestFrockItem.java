@@ -25,7 +25,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import ykkz000.daoism.skill.DaoismSkills;
+import ykkz000.skill.api.player.ExtendedPlayerState;
 
 import java.util.UUID;
 
@@ -39,5 +42,23 @@ public class PriestFrockItem extends TrinketItem {
         Multimap<EntityAttribute, EntityAttributeModifier> modifiers = super.getModifiers(stack, slot, entity, uuid);
         modifiers.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(uuid, this.getTranslationKey(), 0.2, EntityAttributeModifier.Operation.MULTIPLY_BASE));
         return modifiers;
+    }
+
+    @Override
+    public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        if (entity instanceof PlayerEntity player) {
+            ExtendedPlayerState extendedPlayerState = player.getExtendedPlayerState();
+            extendedPlayerState.getSkillState(DaoismSkills.FLASH.getId()).setEnabled(true);
+        }
+        super.onEquip(stack, slot, entity);
+    }
+
+    @Override
+    public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        if (entity instanceof PlayerEntity player) {
+            ExtendedPlayerState extendedPlayerState = player.getExtendedPlayerState();
+            extendedPlayerState.getSkillState(DaoismSkills.FLASH.getId()).setEnabled(false);
+        }
+        super.onUnequip(stack, slot, entity);
     }
 }

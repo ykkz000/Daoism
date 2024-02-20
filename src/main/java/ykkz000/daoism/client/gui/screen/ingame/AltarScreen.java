@@ -25,6 +25,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -55,7 +56,7 @@ public class AltarScreen extends HandledScreen<AltarScreenHandler> {
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        this.renderBackground(context);
+        this.renderBackground(context, mouseX, mouseY, delta);
         int i = this.x;
         int j = this.y;
         context.drawTexture(TEXTURE, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
@@ -74,19 +75,21 @@ public class AltarScreen extends HandledScreen<AltarScreenHandler> {
         int i = this.x + 52;
         int j = this.y + 14;
         int k = this.scrollOffset + 12;
-        List<TalismanRecipe> list = this.handler.getRecipes();
+        List<RecipeEntry<TalismanRecipe>> list = this.handler.getRecipes();
         for (int l = this.scrollOffset; l < k && l < this.handler.getRecipes().size(); ++l) {
             int m = l - this.scrollOffset;
             int n = i + m % 4 * 16;
             int o = j + m / 4 * 18 + 2;
-            if (x < n || x >= n + 16 || y < o || y >= o + 18) continue;
-            TalismanRecipe recipe = list.get(l);
+            if (x < n || x >= n + 16 || y < o || y >= o + 18) {
+                continue;
+            }
+            TalismanRecipe recipe = list.get(l).value();
             if (this.client != null && this.client.world != null && this.client.player != null) {
-                ItemStack stack = recipe.getOutput(this.client.world.getRegistryManager());
+                ItemStack stack = recipe.getResult(this.client.world.getRegistryManager());
                 List<Text> tooltips = Screen.getTooltipFromItem(this.client, stack);
                 tooltips.add(Daoism.I18N.translate("text", "experience_consume", recipe.getExperience())
                         .formatted(Formatting.BLUE));
-                if (AltarScreenHandler.canPlayerFreeFromExp(this.client.player)) {
+                if (AltarScreenHandler.canPlayerFreeFromExp(this.client.player, recipe.getExperience() * AltarScreenHandler.EXP_TO_DAMAGE)) {
                     tooltips.add(Daoism.I18N.translate("text", "experience_free").formatted(Formatting.GREEN));
                 } else if (recipe.getExperience() > this.client.player.experienceLevel) {
                     tooltips.add(Daoism.I18N.translate("text", "experience_not_enough").formatted(Formatting.RED));
@@ -97,14 +100,14 @@ public class AltarScreen extends HandledScreen<AltarScreenHandler> {
     }
 
     private void renderRecipeBackground(DrawContext context, int mouseX, int mouseY, int x, int y, int scrollOffset) {
-        List<TalismanRecipe> list = this.handler.getRecipes();
+        List<RecipeEntry<TalismanRecipe>> list = this.handler.getRecipes();
         for (int i = this.scrollOffset; i < scrollOffset && i < this.handler.getRecipes().size(); ++i) {
             int j = i - this.scrollOffset;
             int k = x + j % 4 * 16;
             int l = j / 4;
             int m = y + l * 18 + 2;
             int n = this.backgroundHeight;
-            if (this.client != null && this.client.player != null && !AltarScreenHandler.canPlayerFreeFromExp(this.client.player) && this.client.player.experienceLevel < list.get(i).getExperience()) {
+            if (this.client != null && this.client.player != null && !AltarScreenHandler.canPlayerFreeFromExp(this.client.player, list.get(i).value().getExperience() * AltarScreenHandler.EXP_TO_DAMAGE) && this.client.player.experienceLevel < list.get(i).value().getExperience()) {
                 n += 54;
             } else if (i == this.handler.getCurrentIndex()) {
                 n += 18;
@@ -116,14 +119,14 @@ public class AltarScreen extends HandledScreen<AltarScreenHandler> {
     }
 
     private void renderRecipeIcons(DrawContext context, int x, int y, int scrollOffset) {
-        List<TalismanRecipe> list = this.handler.getRecipes();
+        List<RecipeEntry<TalismanRecipe>> list = this.handler.getRecipes();
         for (int i = this.scrollOffset; i < scrollOffset && i < this.handler.getRecipes().size(); ++i) {
             int j = i - this.scrollOffset;
             int k = x + j % 4 * 16;
             int l = j / 4;
             int m = y + l * 18 + 2;
             if (this.client != null && this.client.world != null) {
-                context.drawItem(list.get(i).getOutput(this.client.world.getRegistryManager()), k, m);
+                context.drawItem(list.get(i).value().getResult(this.client.world.getRegistryManager()), k, m);
             }
         }
     }
@@ -138,8 +141,9 @@ public class AltarScreen extends HandledScreen<AltarScreenHandler> {
             int m = l - this.scrollOffset;
             double d = mouseX - (double) (i + m % 4 * 16);
             double e = mouseY - (double) (j + m / 4 * 18);
-            if (this.client != null && (!(d >= 0.0) || !(e >= 0.0) || !(d < 16.0) || !(e < 18.0) || !this.handler.onButtonClick(this.client.player, l)))
+            if (this.client != null && (!(d >= 0.0) || !(e >= 0.0) || !(d < 16.0) || !(e < 18.0) || !this.handler.onButtonClick(this.client.player, l))) {
                 continue;
+            }
             if (this.client != null && this.client.interactionManager != null) {
                 this.client.interactionManager.clickButton(this.handler.syncId, l);
             }
@@ -167,10 +171,10 @@ public class AltarScreen extends HandledScreen<AltarScreenHandler> {
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if (this.shouldScroll()) {
             int i = this.getMaxScroll();
-            float f = (float) amount / (float) i;
+            float f = (float) verticalAmount / (float) i;
             this.scrollAmount = MathHelper.clamp(this.scrollAmount - f, 0.0f, 1.0f);
             this.scrollOffset = (int) ((double) (this.scrollAmount * (float) i) + 0.5) * 4;
         }
